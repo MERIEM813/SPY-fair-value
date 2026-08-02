@@ -1,15 +1,3 @@
-"""
-fair_value.py
-
-Estimates a "fair value" for an ETF by reconstructing a weighted basket of its
-holdings, then compares that reconstructed value to the actual market price.
-
-Holdings come straight from State Street's official daily holdings file for
-SPY (public, free, updated daily) -- not a hardcoded top-N guess. This gives
-a much closer approximation to the real replication basket a market maker
-would use, though it's still a snapshot (today's weights applied across the
-whole lookback window, not the actual historical weights on each day).
-"""
 
 import io
 import requests
