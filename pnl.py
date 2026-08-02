@@ -1,16 +1,7 @@
 """
-pnl.py
-
-Decomposes market-making PnL into the two pieces that have to be tracked
-separately:
-  - spread pnl: captured on fills, buying below fair value / selling above it
-  - inventory pnl: mark-to-market gain/loss from holding a position while
-    fair value moves
-
-We don't have real order flow, so fills are simulated: each day, the bid
-and ask each have an independent chance of being hit (FILL_PROB). This is
-a toy fill model, not a queue/order-book simulation -- good enough to show
-the pnl decomposition itself, which is the actual point.
+Fills are simulated : each day, the bid and ask each have an independent chance of being hit (FILL_PROB). This is
+a toy fill model, not a queue/order-book simulation (good enough to show
+the pnl decomposition itself, which is the actual point).
 """
 
 import numpy as np
