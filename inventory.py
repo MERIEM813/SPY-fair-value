@@ -1,17 +1,3 @@
-"""
-inventory.py
-
-Skews the quotes from quote_engine.py based on current position. Long ->
-push both bid and ask down (get out of the position by encouraging sells).
-Short -> push both up. Simplified Avellaneda-Stoikov: skew (in bps) scales
-with position normalized to a reference size (MAX_POSITION) and with
-annualized vol in percentage points -- no terminal horizon term since this
-is a running MM, not a single session with a fixed end time.
-
-Spread width itself is untouched here -- that's quote_engine's job. This
-file only moves the center (bid+ask)/2 away from fair value.
-"""
-
 import pandas as pd
 
 MAX_POSITION = 100    # position size treated as "full size" for normalizing skew
