@@ -1,28 +1,15 @@
-"""
-quote_engine.py
-
-Takes the fair value series from fair_value.py and turns it into a bid/ask.
-Half-spread = a fixed floor (covers fixed costs, adverse selection baseline)
-+ a term that scales with realized vol -- wider quotes when the market is
-choppy, tighter when it's calm. This is deliberately simple (no order book,
-no queue position) -- it's the spread-setting layer, inventory skew comes
-next in inventory.py.
-"""
-
 import numpy as np
 import pandas as pd
 
-BASE_SPREAD_BPS = 2      # floor half-spread even at zero vol
+BASE_SPREAD_BPS = 2      # floor half-spread even at 0 vol
 VOL_MULT = 1.0           # extra half-spread bps per 1 point of annualized vol (%)
 VOL_WINDOW = 5           # rolling window (days) -- kept short since fair_value.py
                          # only produces ~20 usable rows on a 1mo lookback
 ANNUALIZATION = np.sqrt(252)
 
-
 def realized_vol(fair_value, window=VOL_WINDOW):
     ret = fair_value.pct_change()
     return ret.rolling(window).std() * ANNUALIZATION
-
 
 def generate_quotes(fair_value, window=VOL_WINDOW, base_bps=BASE_SPREAD_BPS, vol_mult=VOL_MULT):
     vol = realized_vol(fair_value, window)
